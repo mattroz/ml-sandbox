@@ -2,28 +2,40 @@ from sklearn import tree
 from sklearn.metrics import accuracy_score
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from scipy.spatial import distance
 import random
 import math
 
 
-class MyClassifier():
+class SimpleKNN():
 	def fit(self, X_train, y_train):
 		self.X_train = X_train
 		self.y_train = y_train
 	
 	def predict(self, X_test):
 		predictions = []
-		for item in X_test:
-			target_label = random.choice(y_train)
+		for sample in X_test:
+			# search for the closest neghbour for current sample
+			# in the whole training set
+			target_label = self.closest_neighbour(sample)
 			predictions.append(target_label)
 		return predictions
 
+	# Find the closest neighbour to current sample row.
+	# It's one-NN classifier for now
+	def closest_neighbour(sample):
+		shortest_dist = euclidean_distance(sample, self.X_train[0])
+		shortest_dist_idx = 0
+		for i in range(1, len(self.X_train)):
+			dist = euclidean_distance(sample, self.X_train[i])
+			if dist < shortest_dist:
+				shortest_dist = dist
+				shortest_dist_idx = i
+		return self.y_train[shortest_dist_idx]		
 
-# euclidean distance between two points
-def euclidean_distance(point_A, point_B)
-	x1, y1 = point_A[0], point_A[1] 
-	x2, y2 = point_B[0], point_B[1]
-	return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+def euclidean_distance(point_A, point_B):
+	return distance.euclidean(point_A, point_B)
 
 
 # load data
@@ -35,7 +47,7 @@ y = iris.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
 
 # train tree classifier
-clf = MyClassifier()
+clf = SimpleKNN()
 clf.fit(X_train, y_train)
 
 # print out prediction accuracy
