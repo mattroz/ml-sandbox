@@ -3,6 +3,7 @@ from sklearn.metrics import accuracy_score
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import random
+import math
 
 
 class MyClassifier():
@@ -16,6 +17,13 @@ class MyClassifier():
 			target_label = random.choice(y_train)
 			predictions.append(target_label)
 		return predictions
+
+
+# euclidean distance between two points
+def euclidean_distance(point_A, point_B)
+	x1, y1 = point_A[0], point_A[1] 
+	x2, y2 = point_B[0], point_B[1]
+	return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
 
 # load data
