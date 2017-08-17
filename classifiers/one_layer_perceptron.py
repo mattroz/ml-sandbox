@@ -6,6 +6,7 @@ class Perceptron:
 		self.learning_rate = learning_rate
 		self.n_iters = n_iters
 
+
 	def fit(self, X, y):
 		# Create weights array with (1 + n_features) size
 		n_features = X.shape[1]
@@ -18,7 +19,7 @@ class Perceptron:
 		# Start n_iters epoches
 		for _ in range(n_iters):
 			# Errors in current epoch
-			errors = 0
+			_errors = 0
 			for _x, _y in zip(X,y):
 				# Update variable need for learning process
 				update = self.learning_rate * (_y - self.predict(x))
@@ -28,5 +29,11 @@ class Perceptron:
 				self.weights[0] += update
 				# If update equals 0 - predictet label is correct
 				# and there's no error, 1 otherwise
-				errors += int(update == 0.0)
-			
+				_errors += int(update == 0.0)
+		self.errors.append(_errors)
+		return self
+
+
+	def net_input(self, X):
+		inp = self.weights[0] + np.dot(X, self.weights[1:])
+		return inp
