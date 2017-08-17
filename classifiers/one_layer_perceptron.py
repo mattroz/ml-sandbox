@@ -13,5 +13,20 @@ class Perceptron:
 		# and std deviation = 0.01 
 		rand = np.random.RandomState(1)
 		self.weights = rand.normal(loc=1.0, scale=.01, size=(1 + n_features))
-		# TODO: finish fit method, implement 
-		# prediction method, net function calculation
+		# Errors list will show learning process through epoches
+		self.errors = []
+		# Start n_iters epoches
+		for _ in range(n_iters):
+			# Errors in current epoch
+			errors = 0
+			for _x, _y in zip(X,y):
+				# Update variable need for learning process
+				update = self.learning_rate * (_y - self.predict(x))
+				# Update all weights (weight[0] is
+				# so-called 'bias unit', doesn't depend from x
+				self.weights[1:] += _x * update
+				self.weights[0] += update
+				# If update equals 0 - predictet label is correct
+				# and there's no error, 1 otherwise
+				errors += int(update == 0.0)
+			
