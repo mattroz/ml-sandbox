@@ -33,7 +33,11 @@ class Perceptron:
 		self.errors.append(_errors)
 		return self
 
-
+	# Net input is a function z(X) = w0 + w1*x1 + w2*x2 + ... + wn*xn
 	def net_input(self, X):
 		inp = self.weights[0] + np.dot(X, self.weights[1:])
 		return inp
+	
+
+	def predict(self, X):
+			return np.where(self.net_input(X) >= 0.0, 1, 0)
