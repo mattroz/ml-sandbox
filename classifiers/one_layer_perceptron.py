@@ -17,12 +17,12 @@ class Perceptron:
 		# Errors list will show learning process through epoches
 		self.errors = []
 		# Start n_iters epoches
-		for _ in range(n_iters):
+		for _ in range(self.n_iters):
 			# Errors in current epoch
 			_errors = 0
 			for _x, _y in zip(X,y):
 				# Update variable need for learning process
-				update = self.learning_rate * (_y - self.predict(x))
+				update = self.learning_rate * (_y - self.predict(_x))
 				# Update all weights (weight[0] is
 				# so-called 'bias unit', doesn't depend from x
 				self.weights[1:] += _x * update
