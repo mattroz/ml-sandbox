@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
 from one_layer_perceptron import Perceptron
 
 # Download Iris dataset and extract two features
@@ -27,4 +26,14 @@ plt.scatter(X[50:, 0], X[50:, 1], marker='x', color='blue', label='versicolor')
 plt.xlabel('sepal length')
 plt.ylabel('petal length')
 plt.legend(loc='upper left')
+plt.show()
+
+# Train perceptron
+perceptron = Perceptron()
+perceptron.fit(X, y)
+
+# Plot perceptron error progress through epochs
+plt.plot(range(1, len(perceptron.errors) + 1), perceptron.errors, marker='o')
+plt.xlabel('Epochs')
+plt.ylabel('Num of missclassif-s')
 plt.show()
