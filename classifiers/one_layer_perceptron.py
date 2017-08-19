@@ -30,7 +30,7 @@ class Perceptron:
 				# If update equals 0 - predictet label is correct
 				# and there's no error, 1 otherwise
 				_errors += int(update != 0.0)
-		self.errors.append(_errors)
+			self.errors.append(_errors)
 		return self
 
 	# Net input is a function z(X) = w0 + w1*x1 + w2*x2 + ... + wn*xn
@@ -40,4 +40,4 @@ class Perceptron:
 	
 
 	def predict(self, X):
-			return np.where(self.net_input(X) >= 0.0, 1, 0)
+			return np.where(self.net_input(X) >= 0.0, 1, -1)
