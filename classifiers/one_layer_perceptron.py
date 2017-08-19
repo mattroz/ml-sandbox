@@ -29,7 +29,7 @@ class Perceptron:
 				self.weights[0] += update
 				# If update equals 0 - predictet label is correct
 				# and there's no error, 1 otherwise
-				_errors += int(update == 0.0)
+				_errors += int(update != 0.0)
 		self.errors.append(_errors)
 		return self
 
