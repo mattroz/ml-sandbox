@@ -1,10 +1,22 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Perceptron:
 
 	def __init__(self, learning_rate=0.1, n_iters=10):
 		self.learning_rate = learning_rate
 		self.n_iters = n_iters
+	
+	def plot_decision_boundary(self, X):
+        plt.ylim(ymin=-2)
+        plt.ylim(ymax=4)
+        halfsize = len(X) // 2
+        plt.scatter(X[:halfsize, 0], X[:halfsize, 1], color='red', marker='x')
+        plt.scatter(X[halfsize:, 0], X[halfsize:, 1], color='blue', marker='o')
+        w = self.weights
+        x = X[:, 0]
+        y = -(w[1]/w[2]) * x - w[0]/w[2]
+        plt.plot(x,y)
 
 
 	def fit(self, X, y):
@@ -30,6 +42,7 @@ class Perceptron:
 				# If update equals 0 - predictet label is correct
 				# and there's no error, 1 otherwise
 				_errors += int(update != 0.0)
+			self.plot_decision_boundary(X)
 			self.errors.append(_errors)
 		return self
 
