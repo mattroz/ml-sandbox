@@ -8,15 +8,17 @@ class Perceptron:
 		self.n_iters = n_iters
 	
 	def plot_decision_boundary(self, X):
-        plt.ylim(ymin=-2)
-        plt.ylim(ymax=4)
-        halfsize = len(X) // 2
-        plt.scatter(X[:halfsize, 0], X[:halfsize, 1], color='red', marker='x')
-        plt.scatter(X[halfsize:, 0], X[halfsize:, 1], color='blue', marker='o')
-        w = self.weights
-        x = X[:, 0]
-        y = -(w[1]/w[2]) * x - w[0]/w[2]
-        plt.plot(x,y)
+		y_min = np.min(X[:,1])
+		y_max = np.max(X[:,1])
+		plt.ylim(ymin = y_min-1)
+		plt.ylim(ymax = y_max+1)
+		halfsize = len(X) // 2
+		plt.scatter(X[:halfsize, 0], X[:halfsize, 1], color='red', marker='x')
+		plt.scatter(X[halfsize:, 0], X[halfsize:, 1], color='blue', marker='o')
+		w = self.weights
+		x = X[:, 0]
+		y = -(w[1]/w[2]) * x - w[0]/w[2]
+		plt.plot(x,y)
 
 
 	def fit(self, X, y):
@@ -42,7 +44,7 @@ class Perceptron:
 				# If update equals 0 - predictet label is correct
 				# and there's no error, 1 otherwise
 				_errors += int(update != 0.0)
-			self.plot_decision_boundary(X)
+			self.plot_decision_boundary(X)	# optional
 			self.errors.append(_errors)
 		return self
 
