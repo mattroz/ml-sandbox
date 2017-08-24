@@ -26,3 +26,11 @@ class Adaline:
 			cost = (errors**2).sum() / 2.0
 			self.cost_.append(cost)
 		return self
+
+	
+	def activation(self, X):
+		pass
+
+
+	def predict(self, X):
+		return np.where(self.net_input(X) >= 0.0, -1, 1)
