@@ -54,7 +54,7 @@ class AdalineSGD:
 		self.weights_ = np.random.randn(n_features + 1)
 		self.cost_ = []
 		for _ in range(self.n_iters):
-			epoch_cost = np.array([])
+			epoch_cost = []
 			# Shuffle samples
 			if self.shuffle:
 				X, y = self._shuffle(X,y)
@@ -67,7 +67,7 @@ class AdalineSGD:
 				self.weights_[0] += self.learning_rate * error
 				epoch_cost.append((error ** 2) / 2)
 			# Calculate average cost in the current epoch
-			avg_epoch_cost = epoch_cost.sum() / len(epoch_cost)
+			avg_epoch_cost = sum(epoch_cost) / len(epoch_cost)
 			self.cost_.append(avg_epoch_cost)
 		return self
 	
