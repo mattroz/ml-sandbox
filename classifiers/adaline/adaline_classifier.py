@@ -51,7 +51,7 @@ class AdalineSGD:
 
 	def fit(self, X, y):
 		n_features = X.shape[1]
-      self.weights_ = np.random.randn(n_features + 1)
+		self.weights_ = np.random.randn(n_features + 1)
 		self.cost_ = []
 		for _ in range(self.n_iters):
 			epoch_cost = np.array([])
