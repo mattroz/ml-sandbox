@@ -74,11 +74,8 @@ class AdalineSGD:
 			# the last one update weights incrementally with
 			# every sample:
 			for x, target in zip(X, y):
-				'''error = target - self.net_input(x)
-				self.weights_[1:] += self.learning_rate * x.dot(error)
-				self.weights_[0] += self.learning_rate * error
-				'''
-				epoch_cost.append(self._update_weights(x, target))
+				cost = self._update_weights(x, target)
+				epoch_cost.append(cost)
 			# Calculate average cost in the current epoch
 			avg_epoch_cost = sum(epoch_cost) / len(epoch_cost)
 			self.cost_.append(avg_epoch_cost)
