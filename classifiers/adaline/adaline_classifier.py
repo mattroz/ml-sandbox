@@ -57,7 +57,7 @@ class AdalineSGD:
 		self.weights_[0] += self.learning_rate * error
 		return ((error ** 2) / 2)
 	
-	def _initialize_weights(self, n)
+	def _initialize_weights(self, n):
 		self.weights_initialized = True
 		self.weights_ = np.random.randn(n + 1)
 
