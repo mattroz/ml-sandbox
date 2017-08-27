@@ -27,10 +27,10 @@ class AdalineGD:
 		return (self.weights_[0] + np.dot(X, self.weights_[1:]))
 	
 	def activation(self, X):
-		pass
+		return self.net_input(X)
 
 	def predict(self, X):
-		return np.where(self.net_input(X) >= 0.0, -1, 1)
+		return np.where(self.activation(X) >= 0.0, -1, 1)
 
 
 
@@ -39,7 +39,7 @@ class AdalineSGD:
 
 	# It's essential that data should be shuffled for SGD
 	def __init__(self, learning_rate=0.01, n_iters=10, 
-								shuffle=True):
+						shuffle=True):
 		self.learning_rate = learning_rate
 		self.n_iters = n_iters
 		self.shuffle = shuffle
@@ -73,6 +73,9 @@ class AdalineSGD:
 	
 	def net_input(self, X):
 		return (np.dot(X, self.weights_[1:]) + self.weights_[0])
-	
+
+	def activation(self, X):
+		return self.net_input(X)	
+
 	def predict(self, X):
-		return (np.where(self.net_input(X) >= 0, 1, -1))
+		return (np.where(self.activation(X) >= 0, 1, -1))
