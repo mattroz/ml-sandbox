@@ -42,6 +42,7 @@ class AdalineSGD:
 						shuffle=True):
 		self.learning_rate = learning_rate
 		self.n_iters = n_iters
+		self.weights_initialized = False
 		self.shuffle = shuffle
 
 	# Single underscore means that this method is private
@@ -55,10 +56,14 @@ class AdalineSGD:
 		self.weights_[1:] += self.learning_rate * x.dot(error)
 		self.weights_[0] += self.learning_rate * error
 		return ((error ** 2) / 2)
+	
+	def _initialize_weights(self, n)
+		self.weights_initialized = True
+		self.weights_ = np.random.randn(n + 1)
 
 	def fit(self, X, y):
 		n_features = X.shape[1]
-		self.weights_ = np.random.randn(n_features + 1)
+		self._initialize_weights(n_features)
 		self.cost_ = []
 		for _ in range(self.n_iters):
 			epoch_cost = []
@@ -78,7 +83,25 @@ class AdalineSGD:
 			avg_epoch_cost = sum(epoch_cost) / len(epoch_cost)
 			self.cost_.append(avg_epoch_cost)
 		return self
-	
+
+	# Partial fit is using for online learning, 
+	# e.g. we can feed additional data after the main fit
+	# have been called. It means that weights wouldn't be 
+	# re-initialized and neuron wouldn't be re-fitted
+	def partial_fit(self, X, y):
+		if not self.weights_initialized:
+			self._initialize_weights(X.shape[1])
+		# If we have more than one sample have been fed to this method
+		if y.ravel().shape[0] > 1:
+			# Walk through each sample and update weights 
+			# incrementally according to SGD  
+			for x, target in zip(X,y):
+				self._update_weights(x, target)
+		# And if we have only one sample, just update weights once
+		else:
+			self._update_weights(X, y)
+		return self
+
 	def net_input(self, X):
 		return (np.dot(X, self.weights_[1:]) + self.weights_[0])
 
