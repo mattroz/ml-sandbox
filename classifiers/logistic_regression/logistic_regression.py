@@ -15,12 +15,12 @@ class LogisticRegression:
 		for _ in range(self.n_iters):
 			phi_z = self.net_input(X)
 			print(phi_z)
-		#	errors = y * np.log(phi_z) + (1 - y)*np.log(1 - phi_z)
-			update = (y / self.net_input(X)) - (1 - y)/(1 - self.net_input(X))
-			self.weights_[1:] += self.learning_rate * X.T.dot(update)
-			self.weights_[0] += self.learning_rate * update.sum()
-		#	cost = -(errors).sum()
-		#	self.cost_.append(cost)
+			errors = - y * np.log(phi_z) - (1 - y)*np.log(1 - phi_z)
+			update = (1 - y)/(1 - phi_z) - y / phi_z
+			self.weights_[1:] += -self.learning_rate * X.T.dot(update)
+			self.weights_[0] += -self.learning_rate * update.sum()
+			cost = -(errors).sum()
+			self.cost_.append(cost)
 		return self
 	
 	def net_input(self, X):
