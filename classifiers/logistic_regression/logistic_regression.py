@@ -9,7 +9,7 @@ class LogisticRegression:
 
 	def fit(self, X, y):
 		n_features = X.shape[1]
-		self.weights_ = np.random.randn(n_features + 1)
+		self.weights_ = np.ones(n_features + 1) #np.random.randn(n_features + 1)
 		self.cost_ = []
 		# Start to iterate through epochs
 		for _ in range(self.n_iters):
@@ -21,13 +21,14 @@ class LogisticRegression:
 			self.weights_[0] += -self.learning_rate * update.sum()
 			cost = -(errors).sum()
 			self.cost_.append(cost)
-		return self
-	
+		return self	
+
 	def net_input(self, X):
 		return (self.weights_[0] + np.dot(X, self.weights_[1:]))
 	
+	# Sigmoid function
 	def activation(self, X):
-		return self.net_input(X)
+		return 1/(1 + np.exp(-self.net_input(X)))
 
 	def predict(self, X):
-		return np.where(self.activation(X) >= 0.0, -1, 1)
+		return np.where(self.activation(X) >= 0.5, -1, 1)
