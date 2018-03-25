@@ -57,6 +57,9 @@ def load_planar_dataset():
 
     return X, Y
 
+def ReLU(x):
+	return np.where(x >= 0, x, 0)
+
 def load_extra_datasets():  
     N = 200
     noisy_circles = sklearn.datasets.make_circles(n_samples=N, factor=.5, noise=.3)
