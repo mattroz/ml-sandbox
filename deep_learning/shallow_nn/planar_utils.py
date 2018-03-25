@@ -60,6 +60,15 @@ def load_planar_dataset():
 def ReLU(x):
 	return np.where(x >= 0, x, 0)
 
+def sigmoid_derivative(x):
+	return(sigmoid(x) * (1 - sigmoid(x)))
+
+def tanh_derivative(x):
+	return (1 - np.power(x, 2))
+
+def ReLU_derivative(x):
+	return np.where(x >= 0, 1, 0)
+
 def load_extra_datasets():  
     N = 200
     noisy_circles = sklearn.datasets.make_circles(n_samples=N, factor=.5, noise=.3)
