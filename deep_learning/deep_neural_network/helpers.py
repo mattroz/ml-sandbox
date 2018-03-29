@@ -16,7 +16,7 @@ def sigmoid(Z):
 def sigmoid_derivative(Z):
 	return(sigmoid(Z) * (1 - sigmoid(Z)))
 
-def load_data():
+def load_h5_data():
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
@@ -31,6 +31,10 @@ def load_data():
     test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
     
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
+
+
+def load_jpg_data():
+	pass
 
 
 def print_mislabeled_images(classes, X, y, p):
